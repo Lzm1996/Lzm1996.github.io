@@ -170,16 +170,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br>
+        
+          <a class="article-more-a" href="/2018/07/24/hello-world/#more">more >></a>
+        
       
 
       
@@ -241,70 +235,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-1-下载："><a href="#1-1-下载：" class="headerlink" title="1.1.下载："></a>1.1.下载：</h2><p>官网下载zip包，我下载的是64位的：</p>
-<p>下载地址：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/</a></p>
-<p>下载后解压：（解压在哪个盘都可以的）</p>
-<p>我放在了这里 E:\web\mysql-8.0.11-winx64 ，顺便缩短了文件名，所以为&nbsp;E:\web\mysql-8.0.11。</p>
-<h2 id="1-2-配置环境变量："><a href="#1-2-配置环境变量：" class="headerlink" title="1.2.配置环境变量："></a>1.2.配置环境变量：</h2><p><strong>进入 计算机–高级系统设置–高级–环境变量</strong></p>
-<p><strong>然后新建系统变量</strong></p>
-<p><strong>变量值改为自己mysql解压的路径</strong></p>
-<p>变量名：MYSQL_HOME</p>
-<p>变量值：E:\web\mysql-8.0.11</p>
-<p>path里添加：%MYSQL_HOME%\bin;(分号不要忘记)</p>
-<h2 id="1-3-nbsp-生成data文件："><a href="#1-3-nbsp-生成data文件：" class="headerlink" title="1.3.&nbsp;生成data文件："></a>1.3.&nbsp;<strong>生成data文件：</strong></h2><p>以管理员身份运行cmd</p>
-<p>程序–输入cmd 找到cmd.exe 右键以管理员身份运行</p>
-<p>进入E:\web\mysql-8.0.11\bin下</p>
-<p>执行命令：mysqld –initialize-insecure –user=mysql &nbsp;在E:\web\mysql-8.0.11目录下生成data目录</p>
-<h2 id="1-4-启动服务："><a href="#1-4-启动服务：" class="headerlink" title="1.4.启动服务："></a>1.4.启动服务：</h2><p>执行命令：net start mysql&nbsp;&nbsp;启动mysql服务，若提示：服务名无效…(请看步骤：1.5）；</p>
-<h2 id="1-5-nbsp-解决-启动服务失败（报错）："><a href="#1-5-nbsp-解决-启动服务失败（报错）：" class="headerlink" title="1.5.&nbsp;解决**启动服务失败（报错）：**"></a>1.5.&nbsp;<strong>解决**</strong>启动服务<strong><strong>失败（</strong></strong>报错<strong><strong>）</strong></strong>：**</h2><p>提示：服务名无效</p>
-<p>解决方法：</p>
-<p>执行命令：mysqld -install&nbsp;&nbsp;即可（不需要my.ini配置文件 注意：网上写的很多需要my.ini配置文件，其实不需要my.ini配置文件也可以，我之前放置了my.ini文件，反而提示服务无法启动，把my.ini删除后启动成功了）</p>
-<p>若出现提示“服务正在启动或停止中，请稍后片刻后再重试一次”，需要去资源管理器中把mysql进程全结束了，重新启动即可。</p>
-<h2 id="1-6-nbsp-登录-mysql"><a href="#1-6-nbsp-登录-mysql" class="headerlink" title="1.6.&nbsp;登录**mysql:**"></a>1.6.&nbsp;<strong>登录**</strong>mysql:**</h2><p>登录mysql:(因为之前没设置密码，所以密码为空，不用输入密码，直接回车即可）</p>
-<p>E:\mysql-5.7.20-winx64\bin&gt;mysql -u root -p &nbsp;</p>
-<p>Enter password:&nbsp;</p>
-<h2 id="1-7-nbsp-查询用户密码"><a href="#1-7-nbsp-查询用户密码" class="headerlink" title="1.7.&nbsp;查询用户密码**:**"></a>1.7.&nbsp;<strong>查询用户密码**</strong>:**</h2><p>查询用户密码命令：mysql&gt; select host,user,authentication_string&nbsp;from mysql.user;</p>
-<p>host: 允许用户登录的ip‘位置’%表示可以远程；</p>
-<p>user:当前数据库的用户名；</p>
-<p>authentication_string: 用户密码（后面有提到此字段）；</p>
-<h2 id="1-8-nbsp-设置（或修改）root用户密码："><a href="#1-8-nbsp-设置（或修改）root用户密码：" class="headerlink" title="1.8.&nbsp;设置（或修改）root用户密码："></a>1.8.&nbsp;<strong>设置（或修改）root用户密码：</strong></h2><p>默认root密码为空的话 ，下面使用navicat就无法连接，所以我们需要修改root的密码。</p>
-<p>这是很关键的一步。此处踩过N多坑，后来查阅很多才知道在mysql 5.7.9以后废弃了password字段和password()函数；authentication_string:字段表示用户密码。</p>
-<p>下面直接演示正确修改root密码的步骤：</p>
-<p>　　一、如果当前root用户authentication_string字段下有内容，先将其设置为空，否则直接进行二步骤。</p>
-<ol>
-<li><ol>
-<li>use&nbsp;mysql;&nbsp;&nbsp;</li>
-<li>update&nbsp;user&nbsp;set&nbsp;<span class="attribute">authentication_string=’’<span class="attribute-value">&nbsp; where&nbsp;<span class="attribute">user=<span class="attribute-value">‘root’</span></span></span></span></li>
-<li><span class="attribute">下面直接演示正确修改root密码的步骤：</span></li>
-</ol>
-</li>
-</ol>
-<p>　　二、使用ALTER修改root用户密码,方法为 ALTER&nbsp;user&nbsp;‘root‘@’localhost’&nbsp;IDENTIFIED&nbsp;BY&nbsp;’新密码’。如下：</p>
-<ol>
-<li><ol>
-<li>ALTER&nbsp;user&nbsp;‘root‘@’localhost’&nbsp;IDENTIFIED&nbsp;BY&nbsp;’Cliu123#’</li>
-</ol>
-</li>
-</ol>
-<p>　　此处有两点需要注意：1、不需要flush privileges来刷新权限。2、密码要包含大写字母，小写字母，数字，特殊符号。</p>
-<p>　　修改成功； 重新使用用户名密码登录即可；</p>
-<p>注意： 一定不要采取如下形式该密码：</p>
-<div class="dp-highlighter bg_html"><br><br>1.  use&nbsp;mysql;&nbsp;&nbsp;<br>2.  update&nbsp;user&nbsp;set&nbsp;<span class="attribute">authentication_string=<span class="attribute-value">“newpassword”&nbsp;where&nbsp;<span class="attribute">user=<span class="attribute-value">“root”;&nbsp;&nbsp;</span></span></span></span></div>
-
-<p>这样会给user表中root用户的authentication_string字段下设置了newpassword值；</p>
-<p>当再使用ALTER USER ‘root‘@’localhost’ IDENTIFITED BY ‘newpassword’时会报错的；</p>
-<p>因为authentication_string字段下只能是mysql加密后的41位字符串密码；其他的会报格式错误；</p>
-<p>*THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE</p>
-<p>至此，安装mysql和修改root密码告一段落。开始navicat for mysql篇。</p>
-<p>账号密码都正确，连接报错1251。OK 我们先来看看这个改动：</p>
-<p>在MySQL 8.04前，执行：SET PASSWORD=PASSWORD(‘[新密码]’);但是MySQL8.0.4开始，这样默认是不行的。因为之前，MySQL的密码认证插件是_“mysql_native_password”，而现在使用的是“caching_sha2_password”。_</p>
-<p><em>so,我们这里需要再次修改一次root密码。</em></p>
-<p><em>先登录进入mysql环境：执行下面三个命令。（记得带上分号）</em></p>
-<p><em>1、__use mysql；</em></p>
-<p>_2、ALTER USER ‘root‘@’localhost’ IDENTIFIED WITH mysql_native_password BY ‘新密码’;</p>
-<p>3、FLUSH PRIVILEGES;_</p>
-<p>OK.现在再去重连。perfect!</p>
-
+        <h1 id="mysql8-0环境部署"><a href="#mysql8-0环境部署" class="headerlink" title="mysql8.0环境部署"></a>mysql8.0环境部署</h1>
+        
+          <a class="article-more-a" href="/2018/07/22/mysql8.0环境部署/#more">more >></a>
+        
       
 
       
@@ -377,40 +311,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="第一步-node环境安装"><a href="#第一步-node环境安装" class="headerlink" title="第一步 node环境安装"></a>第一步 node环境安装</h2><p>1.1 如果本机没有安装node运行环境，请下载node 安装包进行安装<br>1.2 如果本机已经安装node的运行换，请更新至最新的node 版本</p>
-<h2 id="下载地址：https-nodejs-org-en-或者-http-nodejs-cn"><a href="#下载地址：https-nodejs-org-en-或者-http-nodejs-cn" class="headerlink" title="下载地址：https://nodejs.org/en/ 或者 http://nodejs.cn/"></a>下载地址：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a> 或者 <a href="http://nodejs.cn/" target="_blank" rel="noopener">http://nodejs.cn/</a></h2><h2 id="第二步-node环境检测"><a href="#第二步-node环境检测" class="headerlink" title="第二步 node环境检测"></a>第二步 node环境检测</h2><p>为了快乐的使用命令行，我们推荐使用 gitbas<br>2.1 下载git 并安装<br>下载地址 <a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">https://git-for-windows.githu…</a><br>安装成功后 右键菜单<br><img src="https://sfault-image.b0.upaiyun.com/168/578/1685787651-58df73ad45978" alt="图片1"></p>
-<p>我们可以看到 Gti Bash Here 。说明我们已经安装成功git<br>2.2  检测node 是否安装成功<br>右键空白，选择 Gti Bash Here  弹出 </p>
-<p>2.2.1 在终端输入 node -v<br><img src="https://sfault-image.b0.upaiyun.com/192/561/1925617494-58df73ff69305" alt="图片2"></p>
-<p>如果输出版本号，说明我们安装node 环境成功</p>
-<hr>
-<h2 id="第三步-vue-cli脚手架安装"><a href="#第三步-vue-cli脚手架安装" class="headerlink" title="第三步 vue-cli脚手架安装"></a>第三步 vue-cli脚手架安装</h2><p>3.1 如果访问外网比较慢，可以使用淘宝的镜像 <a href="https://npm.taobao.org/" target="_blank" rel="noopener">https://npm.taobao.org/</a><br>打开命令终端 npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>回车之后，我就可以可以快乐的用 cnpm 替代 npm</p>
-<p><img src="https://sfault-image.b0.upaiyun.com/398/225/3982253046-58df7429ad0ab" alt="图片3"></p>
-<p>看到这样</p>
-<p><img src="https://sfault-image.b0.upaiyun.com/199/691/1996915331-58df7433c63bf" alt="图片4"></p>
-<p>恭喜你，你已经成功安装了 cnpm<br>但是此后，我们还是使用 npm 来运行命令</p>
-<p>3.2 接下来就是重点了 安装vue-cli<br>npm install vue-cli -g</p>
-<p>3.3 进入我们的项目目录，右键 Gti Bash Here</p>
-<p>3.4 初始化项目 vue init webpack vue-demo</p>
-<p>一直回车直到</p>
-<p><img src="https://sfault-image.b0.upaiyun.com/725/858/725858355-58df7497cee72" alt="图片5"></p>
-<p>是否要安装 vue-router 项目中肯定要使用到 所以 y 回车</p>
-<p>是否需要 js 语法检测 目前我们不需要 所以 n 回车</p>
-<p>是否安装 单元测试工具 目前我们不需要 所以 n 回车</p>
-<p>是否需要 端到端测试工具 目前我们不需要 所以 n 回车</p>
-<p>接下来 ctr+c 结束</p>
-<p>3.5 进入 cd vue-demo</p>
-<p><img src="https://sfault-image.b0.upaiyun.com/130/088/1300881970-58df7554aa79a" alt="图片6"></p>
-<p>3.6 执行 npm install 或者cnpm install</p>
-<p>如果出现下图，说明安装成功</p>
-<p><img src="https://sfault-image.b0.upaiyun.com/239/085/2390856303-58df7569eaeff" alt="图片7"></p>
-<p>3.7 接下来执行 npm run dev</p>
-<p>默认浏览器会自动打开</p>
-<blockquote>
-<p><code>注意：如果您的浏览器是ie9以下的版本，请升级浏览器到最新版本或者下载谷歌浏览器或者火狐浏览器进行预览。在地址栏输入 http://localhost:8080/#/进行访问</code></p>
-</blockquote>
-<p><img src="https://sfault-image.b0.upaiyun.com/171/524/1715248741-58df75bc54706" alt="图片8"></p>
-<p>恭喜，你已经成功安装，并运行起来vue基础项目，踏入了vue的大门。</p>
-
+        <h1 id="vue环境部署"><a href="#vue环境部署" class="headerlink" title="vue环境部署"></a>vue环境部署</h1>
+        
+          <a class="article-more-a" href="/2018/07/22/vue环境部署/#more">more >></a>
+        
       
 
       
@@ -619,22 +523,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
         </ul>
   		
     	</section>
@@ -643,7 +531,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">花魂鸟魂总难留，&lt;br&gt;&lt;br&gt;鸟自无言花自羞&lt;br&gt;</div>
   	  	
     	</section>
     
