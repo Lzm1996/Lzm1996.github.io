@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Mas&#39;s Blog">
 <meta property="og:description" content="mysql8.0环境部署">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T02:52:37.476Z">
+<meta property="og:updated_time" content="2018-07-24T03:09:09.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql8.0环境部署">
 <meta name="twitter:description" content="mysql8.0环境部署">
@@ -173,7 +173,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="mysql8-0环境部署"><a href="#mysql8-0环境部署" class="headerlink" title="mysql8.0环境部署"></a>mysql8.0环境部署</h1><a id="more"></a>
+        <p>mysql8.0环境部署<br><a id="more"></a></p>
 <h2 id="1-1-下载："><a href="#1-1-下载：" class="headerlink" title="1.1.下载："></a>1.1.下载：</h2><p>官网下载zip包，我下载的是64位的：</p>
 <p>下载地址：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/</a></p>
 <p>下载后解压：（解压在哪个盘都可以的）</p>
@@ -189,18 +189,18 @@
 <p>进入E:\web\mysql-8.0.11\bin下</p>
 <p>执行命令：mysqld –initialize-insecure –user=mysql &nbsp;在E:\web\mysql-8.0.11目录下生成data目录</p>
 <h2 id="1-4-启动服务："><a href="#1-4-启动服务：" class="headerlink" title="1.4.启动服务："></a>1.4.启动服务：</h2><p>执行命令：net start mysql&nbsp;&nbsp;启动mysql服务，若提示：服务名无效…(请看步骤：1.5）；</p>
-<h2 id="1-5-nbsp-解决-启动服务失败（报错）："><a href="#1-5-nbsp-解决-启动服务失败（报错）：" class="headerlink" title="1.5.&nbsp;解决**启动服务失败（报错）：**"></a>1.5.&nbsp;<strong>解决**</strong>启动服务<strong><strong>失败（</strong></strong>报错<strong><strong>）</strong></strong>：**</h2><p>提示：服务名无效</p>
+<h2 id="1-5-nbsp-解决启动服务失败（报错）："><a href="#1-5-nbsp-解决启动服务失败（报错）：" class="headerlink" title="1.5.&nbsp;解决启动服务失败（报错）："></a>1.5.&nbsp;解决启动服务失败（报错）：</h2><p>提示：服务名无效</p>
 <p>解决方法：</p>
 <p>执行命令：mysqld -install&nbsp;&nbsp;即可（不需要my.ini配置文件 注意：网上写的很多需要my.ini配置文件，其实不需要my.ini配置文件也可以，我之前放置了my.ini文件，反而提示服务无法启动，把my.ini删除后启动成功了）</p>
 <p>若出现提示“服务正在启动或停止中，请稍后片刻后再重试一次”，需要去资源管理器中把mysql进程全结束了，重新启动即可。</p>
-<h2 id="1-6-nbsp-登录-mysql"><a href="#1-6-nbsp-登录-mysql" class="headerlink" title="1.6.&nbsp;登录**mysql:**"></a>1.6.&nbsp;<strong>登录**</strong>mysql:**</h2><p>登录mysql:(因为之前没设置密码，所以密码为空，不用输入密码，直接回车即可）</p>
+<h2 id="1-6-nbsp-登录mysql"><a href="#1-6-nbsp-登录mysql" class="headerlink" title="1.6.&nbsp;登录mysql:"></a>1.6.&nbsp;登录mysql:</h2><p>登录mysql:(因为之前没设置密码，所以密码为空，不用输入密码，直接回车即可）</p>
 <p>E:\mysql-5.7.20-winx64\bin&gt;mysql -u root -p &nbsp;</p>
 <p>Enter password:&nbsp;</p>
-<h2 id="1-7-nbsp-查询用户密码"><a href="#1-7-nbsp-查询用户密码" class="headerlink" title="1.7.&nbsp;查询用户密码**:**"></a>1.7.&nbsp;<strong>查询用户密码**</strong>:**</h2><p>查询用户密码命令：mysql&gt; select host,user,authentication_string&nbsp;from mysql.user;</p>
+<h2 id="1-7-nbsp-查询用户密码"><a href="#1-7-nbsp-查询用户密码" class="headerlink" title="1.7.&nbsp;查询用户密码:"></a>1.7.&nbsp;查询用户密码:</h2><p>查询用户密码命令：mysql&gt; select host,user,authentication_string&nbsp;from mysql.user;</p>
 <p>host: 允许用户登录的ip‘位置’%表示可以远程；</p>
 <p>user:当前数据库的用户名；</p>
 <p>authentication_string: 用户密码（后面有提到此字段）；</p>
-<h2 id="1-8-nbsp-设置（或修改）root用户密码："><a href="#1-8-nbsp-设置（或修改）root用户密码：" class="headerlink" title="1.8.&nbsp;设置（或修改）root用户密码："></a>1.8.&nbsp;<strong>设置（或修改）root用户密码：</strong></h2><p>默认root密码为空的话 ，下面使用navicat就无法连接，所以我们需要修改root的密码。</p>
+<h2 id="1-8-nbsp-设置（或修改）root用户密码："><a href="#1-8-nbsp-设置（或修改）root用户密码：" class="headerlink" title="1.8.&nbsp;设置（或修改）root用户密码："></a>1.8.&nbsp;设置（或修改）root用户密码：</h2><p>默认root密码为空的话 ，下面使用navicat就无法连接，所以我们需要修改root的密码。</p>
 <p>这是很关键的一步。此处踩过N多坑，后来查阅很多才知道在mysql 5.7.9以后废弃了password字段和password()函数；authentication_string:字段表示用户密码。</p>
 <p>下面直接演示正确修改root密码的步骤：</p>
 <p>　　一、如果当前root用户authentication_string字段下有内容，先将其设置为空，否则直接进行二步骤。</p>
