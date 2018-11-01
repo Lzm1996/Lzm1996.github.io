@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>vue.js | Mas&#39;s Blog</title>
+  <title>sqoop安装、使用 | Mas&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="vue.js">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+  <meta name="description" content="sqoop安装、使用">
+<meta name="keywords" content="sqoop,centos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqoop安装、使用">
+<meta property="og:url" content="http://yoursite.com/2018/10/22/sqoop使用/index.html">
 <meta property="og:site_name" content="Mas&#39;s Blog">
+<meta property="og:description" content="sqoop安装、使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T02:12:30.565Z">
+<meta property="og:updated_time" content="2018-10-22T14:26:31.588Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue.js">
+<meta name="twitter:title" content="sqoop安装、使用">
+<meta name="twitter:description" content="sqoop安装、使用">
   
     <link rel="alternative" href="/atom.xml" title="Mas&#39;s Blog" type="application/atom+xml">
   
@@ -149,27 +153,71 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-sqoop使用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      vue.js
+      sqoop安装、使用
     </h1>
   
 
         
-        <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2018-07-22T07:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+        <a href="/2018/10/22/sqoop使用/" class="archive-article-date">
+  	<time datetime="2018-10-22T12:17:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>sqoop安装、使用<br><a id="more"></a></p>
+<h2 id="sqoop安装"><a href="#sqoop安装" class="headerlink" title="sqoop安装"></a>sqoop安装</h2><ol>
+<li>Hadoop相关配置<br>因为sqoop访问Hadoop的MapReduce使用的是代理的方式，必须在Hadoop中配置所接受的proxy用户和组。<br>编辑hadoop-2.6.5/etc/hadoop/core-site.xml文件。<br>在里面添加如下内容：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!-- sqoop2 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;hadoop.proxyuser.hadoop.hosts&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;*&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;hadoop.proxyuser.hadoop.groups&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;*&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中hadoop.proxyuser.hadoop.hosts（groups）的格式应该是：hadoop.proxyuser.${SYSTEM_USER}.hosts表示运行hadoop的系统用户名，这里我就是使用hadoop用户运行的，所以就这样配置。</p>
+<ol start="2">
+<li><p>Sqoop2相关配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 设置sqoop的环境变量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># etc/profile</span><br><span class="line"></span><br><span class="line">export SQOOP_HOME=/usr/local/sqoop</span><br><span class="line"></span><br><span class="line"># sqoop使用的第三方组件的路径,此目录需手动创建，mysql的jdbc驱动的jar包需复制到此目录</span><br><span class="line"></span><br><span class="line">export SQOOP_SERVER_EXTRA_LIB=$SQOOP_HOME/extra</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 配置server/conf目录下的sqoop.properties</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 路径为hadoop的配置文件目录</span><br><span class="line"></span><br><span class="line">org.apache.sqoop.submission.engine.mapreduce.configuration.directory=/usr/local/hadoop/etc/hadoop </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 配置server/conf目录下的catalina.properties</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 将其中引用jar的目录地址改成hadoop中的地址(刚开始没有配置此项，sqoop2-tool verify报错，配置后运行正常)</span><br><span class="line"></span><br><span class="line">common.loader=$&#123;catalina.base&#125;/lib,$&#123;catalina.base&#125;/lib/*.jar,$&#123;catalina.home&#125;/lib,$&#123;catalina.home&#125;/lib/*.jar,$&#123;catalina.home&#125;/../lib/*.jar,/usr/local/hadoop/share/hadoop/common/*.jar,/usr/local/hadoop/share/hadoop/common/lib/*.jar,/usr/local/hadoop/share/hadoop/hdfs/*.jar,/usr/local/hadoop/share/hadoop/hdfs/lib/*.jar,/usr/local/hadoop/share/hadoop/mapreduce/*.jar,/usr/local/hadoop/share/hadoop/mapreduce/lib/*.jar,/usr/local/hadoop/share/hadoop/tools/*.jar,/usr/local/hadoop/share/hadoop/tools/lib/*.jar,/usr/local/hadoop/share/hadoop/yarn/*.jar,/usr/local/hadoop/share/hadoop/yarn/lib/*.jar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sqoop初始化(第一次启动时)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 脚本在$SQOOP_HOME/bin目录下</span><br><span class="line"></span><br><span class="line">sqoop2-tool upgrade</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证配置与启动服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 脚本在$SQOOP_HOME/bin目录下</span><br><span class="line">sqoop2-tool verify</span><br><span class="line"></span><br><span class="line"># 脚本在$SQOOP_HOME/bin目录下</span><br><span class="line">sqoop.sh server start</span><br><span class="line">sqoop2-server start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>相关驱动<br>添加MySQL驱动<br>这篇主要是从MySQL数据库导入数据，所以需要添加MySQL官方的JDBC驱动。<br>从官网下载：(<a href="https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.41.zip" target="_blank" rel="noopener">https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.41.zip</a>)<br>解压下其中的jar包文件，将其放到Sqoop的server/lib和shell/lib目录下。</p>
+</li>
+</ol>
+<h2 id="sqoop2使用"><a href="#sqoop2使用" class="headerlink" title="sqoop2使用"></a>sqoop2使用</h2><ul>
+<li><p>首先需要先运行Hadoop服务，进入hadoop-2.6.5/sbin/。启动dfs、yarn和jobhistory</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./start-dfs.sh </span><br><span class="line">$ ./start-yarn.sh</span><br><span class="line">$ ./start-jobhistory.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动sqoop2服务，进入sqoop-1.99.7-bin-hadoop200/bin/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./sqoop.sh server start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行以下命令进入sqoop2命令行交互界面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./sqoop2-shell</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连接服务端，配置参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqoop:000&gt; set server --host 127.0.0.1 --port 12000 --webapp sqoop</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>命令行操作sqoop2可以转至(<a href="https://blog.csdn.net/lusyoe/article/details/60478226" target="_blank" rel="noopener">https://blog.csdn.net/lusyoe/article/details/60478226</a>)</p>
+<ul>
+<li>以下为java操作sqoop2<br>首先添加maven依赖<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.sqoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sqoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.99.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/lib/sqoop-client-1.99.7.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.sqoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sqoop-common<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.99.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/lib/sqoop-common-1.99.7.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以下是java操作sqoop实现mysqltohdfs<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqoopUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mysqlToHDFS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//初始化</span></span><br><span class="line">        String url = <span class="string">"http://10.4.20.136:12000/sqoop/"</span>;</span><br><span class="line">        SqoopClient client = <span class="keyword">new</span> SqoopClient(url);</span><br><span class="line">        System.out.println(client);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建一个源链接 JDBC</span></span><br><span class="line">        MLink fromLink = client.createLink(<span class="string">"generic-jdbc-connector"</span>);</span><br><span class="line">        fromLink.setName(<span class="string">"jdbc-link"</span> + UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">8</span>));</span><br><span class="line">        fromLink.setCreationUser(<span class="string">"liuzhangmin"</span>);</span><br><span class="line">        MLinkConfig fromLinkConfig = fromLink.getConnectorLinkConfig();</span><br><span class="line">        fromLinkConfig.getStringInput(<span class="string">"linkConfig.connectionString"</span>).setValue(<span class="string">"jdbc:mysql://10.4.20.151:3306/spring?userUnicode=true&amp;characterEncoding=UTF8&amp;useSSL=false"</span>);</span><br><span class="line">        fromLinkConfig.getStringInput(<span class="string">"linkConfig.jdbcDriver"</span>).setValue(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        fromLinkConfig.getStringInput(<span class="string">"linkConfig.username"</span>).setValue(<span class="string">"root"</span>);</span><br><span class="line">        fromLinkConfig.getStringInput(<span class="string">"linkConfig.password"</span>).setValue(<span class="string">"Root@123"</span>);</span><br><span class="line">        fromLinkConfig.getStringInput(<span class="string">"dialect.identifierEnclose"</span>).setValue(<span class="string">" "</span>);</span><br><span class="line">        Status fromStatus = client.saveLink(fromLink);</span><br><span class="line">        <span class="keyword">if</span> (fromStatus.canProceed()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"创建JDBC Link成功，ID为: "</span> + fromLink.getPersistenceId());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"创建JDBC Link失败"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//创建一个目的地链接HDFS</span></span><br><span class="line">        MLink toLink = client.createLink(<span class="string">"hdfs-connector"</span>);</span><br><span class="line">        toLink.setName(<span class="string">"hdfs-link"</span> + UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">8</span>));</span><br><span class="line">        toLink.setCreationUser(<span class="string">"liuzhangmin"</span>);</span><br><span class="line">        MLinkConfig toLinkConfig = toLink.getConnectorLinkConfig();</span><br><span class="line">        toLinkConfig.getStringInput(<span class="string">"linkConfig.uri"</span>).setValue(<span class="string">"hdfs://10.4.20.136:9000"</span>);</span><br><span class="line">        Status toStatus = client.saveLink(toLink);</span><br><span class="line">        <span class="keyword">if</span> (toStatus.canProceed()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"创建HDFS Link成功，ID为: "</span> + toLink.getPersistenceId());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"创建HDFS Link失败"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建一个任务</span></span><br><span class="line">        String fromLinkName = fromLink.getName();</span><br><span class="line">        String toLinkName = toLink.getName();</span><br><span class="line">        MJob job = client.createJob(fromLinkName, toLinkName);</span><br><span class="line">        job.setName(<span class="string">"mysqltohdfs2"</span>);</span><br><span class="line">        job.setCreationUser(<span class="string">"liuzhangmin"</span>);</span><br><span class="line">        <span class="comment">// 设置源链接任务配置信息</span></span><br><span class="line">        MFromConfig fromJobConfig = job.getFromJobConfig();</span><br><span class="line">        fromJobConfig.getStringInput(<span class="string">"fromJobConfig.tableName"</span>).setValue(<span class="string">"test1"</span>);</span><br><span class="line"><span class="comment">//        fromJobConfig.getStringInput("fromJobConfig.partitionColumn").setValue("id");</span></span><br><span class="line">        <span class="comment">// 设置目标链接任务配置信息</span></span><br><span class="line">        MToConfig toJobConfig = job.getToJobConfig();</span><br><span class="line">        toJobConfig.getStringInput(<span class="string">"toJobConfig.outputDirectory"</span>).setValue(<span class="string">"/hdfs4jdbc"</span>);</span><br><span class="line">        toJobConfig.getBooleanInput(<span class="string">"toJobConfig.appendMode"</span>).setValue(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">//        toJobConfig.getEnumInput("toJobConfig.storageType").setValue("HDFS");</span></span><br><span class="line">        toJobConfig.getEnumInput(<span class="string">"toJobConfig.outputFormat"</span>).setValue(<span class="string">"TEXT_FILE"</span>);</span><br><span class="line">        <span class="comment">// Job resources</span></span><br><span class="line">        MDriverConfig driverConfig = job.getDriverConfig();</span><br><span class="line">        driverConfig.getIntegerInput(<span class="string">"throttlingConfig.numExtractors"</span>).setValue(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//        driverConfig.getIntegerInput("throttlingConfig.loaders").setValue(1);</span></span><br><span class="line"></span><br><span class="line">        Status status = client.saveJob(job);</span><br><span class="line">        <span class="keyword">if</span> (status.canProceed()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"JOB创建成功，ID为: "</span> + job.getPersistenceId());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"JOB创建失败。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//启动任务</span></span><br><span class="line">        String jobName = job.getName();</span><br><span class="line">        MSubmission submission = client.startJob(jobName);</span><br><span class="line">        System.out.println(jobName);</span><br><span class="line">        System.out.println(<span class="string">"JOB提交状态为 : "</span> + submission.getStatus());</span><br><span class="line">        <span class="keyword">while</span> (submission.getStatus().isRunning() &amp;&amp; submission.getProgress() != -<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">"进度 : "</span> + String.format(<span class="string">"%.2f %%"</span>, submission.getProgress() * <span class="number">100</span>));</span><br><span class="line">            <span class="comment">//三秒报告一次进度</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"JOB执行结束... ..."</span>);</span><br><span class="line">        System.out.println(<span class="string">"Hadoop任务ID为 :"</span> + submission.getExternalJobId());</span><br><span class="line">        Counters counters = submission.getCounters();</span><br><span class="line">        <span class="keyword">if</span> (counters != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">"计数器:"</span>);</span><br><span class="line">            <span class="keyword">for</span> (CounterGroup group : counters) &#123;</span><br><span class="line">                System.out.print(<span class="string">"\t"</span>);</span><br><span class="line">                System.out.println(group.getName());</span><br><span class="line">                <span class="keyword">for</span> (Counter counter : group) &#123;</span><br><span class="line">                    System.out.print(<span class="string">"\t\t"</span>);</span><br><span class="line">                    System.out.print(counter.getName());</span><br><span class="line">                    System.out.print(<span class="string">": "</span>);</span><br><span class="line">                    System.out.println(counter.getValue());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"MySQL通过sqoop传输数据到HDFS统计执行完毕"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="sqoop2使用时遇到的问题"><a href="#sqoop2使用时遇到的问题" class="headerlink" title="sqoop2使用时遇到的问题"></a>sqoop2使用时遇到的问题</h2><ul>
+<li><strong>创建jdbc链接时报错</strong><br>相关驱动如MySQL没配置好</li>
+<li><strong>运行时报错spark is not allowed to simulate ${user}</strong><br>这是由于hadoop的proxy用户和组没配置正确</li>
+<li><strong>sqoop作业只能运行一次而且无法暂停和查看状态</strong><br>这是因为hadoop的jobhistory服务未开启</li>
+</ul>
+
       
 
       
@@ -198,6 +246,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sqoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -248,7 +311,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/tags/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/22/sqoop使用/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -260,6 +323,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/22/hadoop-hdfs常用命令/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hadoop HDFS常用命令</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -273,6 +346,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sqoop安装"><span class="toc-number">1.</span> <span class="toc-text">sqoop安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqoop2使用"><span class="toc-number">2.</span> <span class="toc-text">sqoop2使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqoop2使用时遇到的问题"><span class="toc-number">3.</span> <span class="toc-text">sqoop2使用时遇到的问题</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -310,7 +396,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

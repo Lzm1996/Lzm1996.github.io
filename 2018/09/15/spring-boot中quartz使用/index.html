@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>vue.js | Mas&#39;s Blog</title>
+  <title>spring-boot中quartz使用 | Mas&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="vue.js">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+  <meta name="description" content="spring-boot中quartz使用">
+<meta name="keywords" content="spring-boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring-boot中quartz使用">
+<meta property="og:url" content="http://yoursite.com/2018/09/15/spring-boot中quartz使用/index.html">
 <meta property="og:site_name" content="Mas&#39;s Blog">
+<meta property="og:description" content="spring-boot中quartz使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T02:12:30.565Z">
+<meta property="og:updated_time" content="2018-09-15T02:53:11.829Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue.js">
+<meta name="twitter:title" content="spring-boot中quartz使用">
+<meta name="twitter:description" content="spring-boot中quartz使用">
   
     <link rel="alternative" href="/atom.xml" title="Mas&#39;s Blog" type="application/atom+xml">
   
@@ -149,27 +153,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-spring-boot中quartz使用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      vue.js
+      spring-boot中quartz使用
     </h1>
   
 
         
-        <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2018-07-22T07:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+        <a href="/2018/09/15/spring-boot中quartz使用/" class="archive-article-date">
+  	<time datetime="2018-09-15T00:17:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>spring-boot中quartz使用<br><a id="more"></a></p>
+<h2 id="1、maven项目中引入"><a href="#1、maven项目中引入" class="headerlink" title="1、maven项目中引入"></a>1、maven项目中引入</h2><p>在pom.xml中添加以下依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2、使用"><a href="#2、使用" class="headerlink" title="2、使用"></a>2、使用</h2><p>Quartz的3个重要组成，JobDetail，Trigger，Scheduler</p>
+<ol>
+<li>创建一个类 HelloJob.java，这个类是编写我们的具体要实现任务（打印Hello Quartz）</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.quartz.Job;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionContext;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloJob</span> <span class="keyword">implements</span> <span class="title">Job</span></span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(JobExecutionContext jobExecutionContext)</span> <span class="keyword">throws</span> JobExecutionException </span>&#123;</span><br><span class="line">        <span class="comment">//打印当前的执行时间 例如 2017-11-23 00:00:00</span></span><br><span class="line">        Date date = <span class="keyword">new</span> Date();</span><br><span class="line">        <span class="comment">//在job中可以获取设置的参数</span></span><br><span class="line">        String value = context.getJobDetail().getJobDataMap().get(<span class="string">"param"</span>).toString();</span><br><span class="line">        SimpleDateFormat sf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">        System.out.println(<span class="string">"现在的时间是："</span>+ sf.format(date));</span><br><span class="line">        <span class="comment">//具体的业务逻辑</span></span><br><span class="line">        System.out.println(<span class="string">"Hello Quartz"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>创建一个类HelloScheduler.java，这个是具体触发我们的任务</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloScheduler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SchedulerException </span>&#123;</span><br><span class="line">        <span class="comment">//创建一个jobDetail的实例，将该实例与HelloJob Class绑定</span></span><br><span class="line">        JobDetail jobDetail = JobBuilder.newJob(HelloJob.class).withIdentity(<span class="string">"myJob"</span>).build();</span><br><span class="line">        <span class="comment">//执行的任务中传入参数------------------------------</span></span><br><span class="line">        jobDetail.getJobDataMap().put(<span class="string">"param"</span>, <span class="string">"value"</span>);</span><br><span class="line">        <span class="comment">//创建一个Trigger触发器的实例，定义该job立即执行，并且每2秒执行一次，一直执行</span></span><br><span class="line">        SimpleTrigger trigger = TriggerBuilder.newTrigger().withIdentity(<span class="string">"myTrigger"</span>).startNow().withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(<span class="number">2</span>).repeatForever()).build();</span><br><span class="line">        <span class="comment">//创建schedule实例</span></span><br><span class="line">        StdSchedulerFactory factory = <span class="keyword">new</span> StdSchedulerFactory();</span><br><span class="line">        Scheduler scheduler = factory.getScheduler();</span><br><span class="line">        scheduler.start();</span><br><span class="line">        scheduler.scheduleJob(jobDetail,trigger);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>执行main方法</li>
+</ol>
+<h2 id="3、job类中注入service报错null解决办法"><a href="#3、job类中注入service报错null解决办法" class="headerlink" title="3、job类中注入service报错null解决办法"></a>3、job类中注入service报错null解决办法</h2><p>不能使用StdSchedulerFactory，需要自定义factory来获取Scheduler<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.meimei.quartz_demo.factory;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.quartz.spi.TriggerFiredBundle;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.AutowireCapableBeanFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.AdaptableJobFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liuzhangmin</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 自定义工厂类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018-09-09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SchedulerFactory</span> <span class="keyword">extends</span> <span class="title">AdaptableJobFactory</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//spring bean 对象管理工厂</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AutowireCapableBeanFactory capableBeanFactory;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">createJobInstance</span><span class="params">(TriggerFiredBundle bundle)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//调用父类的方法</span></span><br><span class="line">        Object jobInstance = <span class="keyword">super</span>.createJobInstance(bundle);</span><br><span class="line">        <span class="comment">//自动注入</span></span><br><span class="line">        capableBeanFactory.autowireBean(jobInstance);</span><br><span class="line">        <span class="keyword">return</span> jobInstance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h3><p>配置文件 ：quartz.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 固定前缀org.quartz</span><br><span class="line"># 主要分为scheduler、threadPool、jobStore、plugin等部分</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line">org.quartz.scheduler.instanceName=DefaultQuartzScheduler</span><br><span class="line">org.quartz.scheduler.rmi.export=false</span><br><span class="line">org.quartz.scheduler.rmi.proxy=false</span><br><span class="line">org.quartz.scheduler.wrapJobExecutionInUserTransaction=false</span><br><span class="line"> </span><br><span class="line"># 实例化ThreadPool时，使用的线程类为SimpleThreadPool</span><br><span class="line">org.quartz.threadPool.class=org.quartz.simpl.SimpleThreadPool</span><br><span class="line"> </span><br><span class="line"># threadCount和threadPriority将以setter的形式注入ThreadPool实例</span><br><span class="line"># 并发个数</span><br><span class="line">org.quartz.threadPool.threadCount=5</span><br><span class="line"># 优先级</span><br><span class="line">org.quartz.threadPool.threadPriority=5</span><br><span class="line">org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread=true</span><br><span class="line"> </span><br><span class="line">org.quartz.jobStore.misfireThreshold=5000</span><br><span class="line"> </span><br><span class="line"># 默认存储在内存中(不需要配置 可以在源码中的properties中看到这个配置)</span><br><span class="line">#org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore</span><br><span class="line"> </span><br><span class="line"># ——————————————————————————————上面展示的是非持久的配置——————————————————————————</span><br></pre></td></tr></table></figure></p>
+<p>配置类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.meimei.quartz_demo.config;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.meimei.quartz_demo.factory.SchedulerFactory;</span><br><span class="line"><span class="keyword">import</span> org.quartz.Scheduler;</span><br><span class="line"><span class="keyword">import</span> org.quartz.ee.servlet.QuartzInitializerListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.PropertiesFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.ClassPathResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.SchedulerFactoryBean;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> licunzhi</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> quartz configuration(we can also use xml, but springboot recommend to use annotation <span class="doctag">@configuration</span> to config)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018-09-05</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuartzConfiguration</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 注入service需要配置工厂类</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SchedulerFactory schedulerFactory;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Bean</span>(name=<span class="string">"SchedulerFactory"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SchedulerFactoryBean <span class="title">schedulerFactoryBean</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SchedulerFactoryBean factory = <span class="keyword">new</span> SchedulerFactoryBean();</span><br><span class="line">        <span class="comment">// 注入service需要配置工厂类</span></span><br><span class="line">        factory.setJobFactory(schedulerFactory);</span><br><span class="line">        <span class="comment">// 注入service需要配置工厂类</span></span><br><span class="line"> </span><br><span class="line">        PropertiesFactoryBean propertiesFactoryBean = <span class="keyword">new</span> PropertiesFactoryBean();</span><br><span class="line">        propertiesFactoryBean.setLocation(<span class="keyword">new</span> ClassPathResource(<span class="string">"/quartz.properties"</span>));</span><br><span class="line">        <span class="comment">//在quartz.properties中的属性被读取并注入后再初始化对象</span></span><br><span class="line">        propertiesFactoryBean.afterPropertiesSet();</span><br><span class="line">        Properties properties = propertiesFactoryBean.getObject();</span><br><span class="line">        factory.setQuartzProperties(properties);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * quartz初始化监听器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> QuartzInitializerListener <span class="title">executorListener</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> QuartzInitializerListener();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 通过SchedulerFactoryBean获取Scheduler的实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span>(name=<span class="string">"Scheduler"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Scheduler <span class="title">scheduler</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> schedulerFactoryBean().getScheduler();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这时使用配置好的工厂类获取的Scheduler，相应的job类中就可以注入service了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier</span>(value = <span class="string">"Scheduler"</span>)</span><br><span class="line">    Scheduler scheduler;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SchedulerException </span>&#123;</span><br><span class="line">        <span class="comment">//创建一个jobDetail的实例，将该实例与HelloJob Class绑定</span></span><br><span class="line">        JobDetail jobDetail = JobBuilder.newJob(HelloJob.class).withIdentity(<span class="string">"myJob"</span>).build();</span><br><span class="line">        <span class="comment">//执行的任务中传入参数------------------------------</span></span><br><span class="line">        jobDetail.getJobDataMap().put(<span class="string">"param"</span>, <span class="string">"value"</span>);</span><br><span class="line">        <span class="comment">//创建一个Trigger触发器的实例，定义该job立即执行，并且每2秒执行一次，一直执行</span></span><br><span class="line">        SimpleTrigger trigger = TriggerBuilder.newTrigger().withIdentity(<span class="string">"myTrigger"</span>).startNow().withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(<span class="number">2</span>).repeatForever()).build();</span><br><span class="line">        <span class="comment">//使用自定义工厂获取的Scheduler实例</span></span><br><span class="line">        <span class="comment">// StdSchedulerFactory factory = new StdSchedulerFactory();</span></span><br><span class="line">        <span class="comment">// Scheduler scheduler = factory.getScheduler();</span></span><br><span class="line">        scheduler.start();</span><br><span class="line">        scheduler.scheduleJob(jobDetail,trigger);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -198,6 +221,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring-boot</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -248,7 +282,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/tags/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/15/spring-boot中quartz使用/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -260,6 +294,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2018/09/15/java和maven环境变量/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java和maven环境变量
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/29/修改pip的镜像源/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pip镜像源修改</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -273,6 +326,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、maven项目中引入"><span class="toc-number">1.</span> <span class="toc-text">1、maven项目中引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、使用"><span class="toc-number">2.</span> <span class="toc-text">2、使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、job类中注入service报错null解决办法"><span class="toc-number">3.</span> <span class="toc-text">3、job类中注入service报错null解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关配置"><span class="toc-number">3.1.</span> <span class="toc-text">相关配置</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -310,7 +376,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
