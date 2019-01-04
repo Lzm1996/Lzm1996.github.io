@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Lzm" />
+
+
+
+<meta name="description" content="spring-boot中kettle的使用及出现的问题">
+<meta name="keywords" content="spring-boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring-boot中kettle使用">
+<meta property="og:url" content="https://lzm1996.github.io/2018/10/10/spring-boot中kettle使用/index.html">
+<meta property="og:site_name" content="Mas&#39;s Blog">
+<meta property="og:description" content="spring-boot中kettle的使用及出现的问题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://lzm1996.github.io/assets/img/spring-boot中kettle使用图1.png">
+<meta property="og:updated_time" content="2018-12-22T05:37:33.756Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring-boot中kettle使用">
+<meta name="twitter:description" content="spring-boot中kettle的使用及出现的问题">
+<meta name="twitter:image" content="https://lzm1996.github.io/assets/img/spring-boot中kettle使用图1.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Mas&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>spring-boot中kettle使用 | Mas&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Lzm</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">花谢花飞飞满天</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phoenix/">phoenix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pip/">pip</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqoop/">sqoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-js/">vue.js</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Lzm</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Lzm</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">花谢花飞飞满天</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-spring-boot中kettle使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/10/spring-boot中kettle使用/" class="article-date">
+      <time datetime="2018-10-10T06:17:25.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-boot中kettle使用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-boot/">spring-boot</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>spring-boot中kettle的使用及出现的问题<br><a id="more"></a></p>
+<h2 id="maven项目无法自动导入kettle包"><a href="#maven项目无法自动导入kettle包" class="headerlink" title="maven项目无法自动导入kettle包"></a>maven项目无法自动导入kettle包</h2><p>在pom.xml中加入如下节点，这个节点指向了他们自己的jar包仓库<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">id</span>&gt;</span>pentaho-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repository.pentaho.org/artifactory/repo/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">id</span>&gt;</span>pentaho-nexus<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://nexus.pentaho.org/content/groups/omni/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>调用kettle需要使用到的包：</p>
+<ul>
+<li>commons-vfs-20100924-pentaho.jar</li>
+<li>kettle-core-5.4.0.1-130.jar</li>
+<li>kettle-dbdialog-5.4.0.1-130.jar</li>
+<li>kettle-engine-5.4.0.1-130.jar</li>
+<li>pentaho-big-data-plugins-5.4.0.1-130.jar(data-integration\plugins\pentaho-big-data-plugin下)</li>
+<li>kettle-ui-swt-5.4.0.1-130.jar（ui包我暂时没用到）</li>
+</ul>
+<h2 id="maven打包项目找不到第三方引入包"><a href="#maven打包项目找不到第三方引入包" class="headerlink" title="maven打包项目找不到第三方引入包"></a>maven打包项目找不到第三方引入包</h2><p><img src="/assets/img/spring-boot中kettle使用图1.png" alt="图1"></p>
+<p>然后在maven项目pom.xml中引入依赖如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>pentaho-kettle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kettle-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.4.0.1-130<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/lib/kettle-core-5.4.0.1-130.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>pentaho-kettle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kettle-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.4.0.1-130<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/lib/kettle-engine-5.4.0.1-130.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>pentaho<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pentaho-big-data-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.4.0.1-130<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/lib/pentaho-big-data-plugin-5.4.0.1-130.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-vfs2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1-20100924<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/lib/commons-vfs-20100924-pentaho.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>此外还需要在maven plugin中配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>repackage<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">executable</span>&gt;</span>true<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">addResources</span>&gt;</span>true<span class="tag">&lt;/<span class="name">addResources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includeSystemScope</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeSystemScope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这时打包就不会报错了。</p>
+<h2 id="kettle有些类找不到"><a href="#kettle有些类找不到" class="headerlink" title="kettle有些类找不到"></a>kettle有些类找不到</h2><p>kettle3.x版本到kettle4.x及之后版本有一些代码的迁移和变动<br>StepLoader是我们获取每步转换信息的基础，其主要改动如下：</p>
+<ul>
+<li>StepLoader.findStepPluginWithID(id) –&gt; PluginRegistry.findPluginWithId(StepPluginType.class, id)</li>
+<li>StepPlugin –&gt; PluginInterface</li>
+<li>StepLoader.getStepClass(StepPlugin) –&gt; (StepMetaInterface)PluginRegistry.loadClass(PluginInterface, PluginClassType.MainClassType)</li>
+<li>StepLoader.getStepPluginID(StepMetaInterface) –&gt; PluginRegistry.getPluginId(StepPluginType..class, StepMetaInterface)</li>
+<li>init() –&gt; taken over by PluginRegistry.init() and StepPluginType.searchPlugins()</li>
+<li>getPluginPackages() –&gt; is now available as getPluginPackages(PluginTypeInterface) returning a list of package names</li>
+<li>getPluginInformation() –&gt; getPluginInformation(PluginTypeInterface) returning a RowBuffer object<br>JobEntryLoader同样是作业启动的基础，其主要改动如下：</li>
+<li>JobEntryLoader.findJobEntriesWithDescription(String) –&gt; PluginRegistry.findPluginWithName(StepPluginType..class, description)</li>
+<li>JobPlugin (also with a wrong name!) –&gt; PluginInterface</li>
+<li>JobEntryLoader.getStepClass(StepPlugin) –&gt; (JobEntryInterface)PluginRegistry.loadClass(PluginInterface, PluginClassType.MainClassType)</li>
+<li>JobEntryLoader.getJobEntryPluginID(JobEntryInterface) –&gt; PluginRegistry.getPluginId(JobEntryPluginType.getInstance(), JobEntryInterface)</li>
+<li>init(): taken over by PluginRegistry.init() and JobEntryPluginType.searchPlugins()</li>
+</ul>
+<h2 id="使用java执行kettle"><a href="#使用java执行kettle" class="headerlink" title="使用java执行kettle"></a>使用java执行kettle</h2><h3 id="1-通过文件方式执行转换"><a href="#1-通过文件方式执行转换" class="headerlink" title="1.通过文件方式执行转换"></a>1.通过文件方式执行转换</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runTransfer</span><span class="params">(String[] params, String ktrPath)</span> </span>&#123;  </span><br><span class="line">        Trans trans = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            <span class="comment">// // 初始化  </span></span><br><span class="line">            <span class="comment">// 转换元对象  </span></span><br><span class="line">            KettleEnvironment.init();<span class="comment">// 初始化              EnvUtil.environmentInit();  </span></span><br><span class="line">            TransMeta transMeta = <span class="keyword">new</span> TransMeta(ktrPath);  </span><br><span class="line">            <span class="comment">// 转换  </span></span><br><span class="line">            trans = <span class="keyword">new</span> Trans(transMeta);  </span><br><span class="line">              </span><br><span class="line">            <span class="comment">// 执行转换              trans.execute(params);  </span></span><br><span class="line">            <span class="comment">// 等待转换执行结束              trans.waitUntilFinished();  </span></span><br><span class="line">            <span class="comment">// 抛出异常  </span></span><br><span class="line">            <span class="keyword">if</span> (trans.getErrors() &gt; <span class="number">0</span>) &#123;  </span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(  </span><br><span class="line">                        <span class="string">"There are errors during transformation exception!(传输过程中发生异常)"</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-通过文件方式执行job"><a href="#2-通过文件方式执行job" class="headerlink" title="2.通过文件方式执行job"></a>2.通过文件方式执行job</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runJob</span><span class="params">(Map&lt;String,String&gt; maps, String jobPath)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            KettleEnvironment.init();  </span><br><span class="line">            <span class="comment">// jobname 是Job脚本的路径及名称  </span></span><br><span class="line">            JobMeta jobMeta = <span class="keyword">new</span> JobMeta(jobPath, <span class="keyword">null</span>);  </span><br><span class="line">            Job job = <span class="keyword">new</span> Job(<span class="keyword">null</span>, jobMeta);  </span><br><span class="line">            <span class="comment">// 向Job 脚本传递参数，脚本中获取参数值：$&#123;参数名&#125;  </span></span><br><span class="line">            <span class="comment">// job.setVariable(paraname, paravalue);  </span></span><br><span class="line">            Set&lt;Entry&lt;String, String&gt;&gt; set=maps.entrySet(); </span><br><span class="line">            <span class="keyword">for</span>(Iterator&lt;Entry&lt;String, String&gt;&gt; it=set.iterator();it.hasNext();)&#123; </span><br><span class="line">                Entry&lt;String, String&gt; ent=it.next(); </span><br><span class="line">                job.setVariable(ent.getKey(), ent.getValue());  </span><br><span class="line">            &#125; </span><br><span class="line">            job.start();  </span><br><span class="line">            job.waitUntilFinished();  </span><br><span class="line">            <span class="keyword">if</span> (job.getErrors() &gt; <span class="number">0</span>) &#123;  </span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(  </span><br><span class="line">                        <span class="string">"There are errors during job exception!(执行job发生异常)"</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-执行资源库的中的转换"><a href="#3-执行资源库的中的转换" class="headerlink" title="3.执行资源库的中的转换"></a>3.执行资源库的中的转换</h3><p>可以将转换文件存储到资源库，通过程序进行调用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runWithDb</span><span class="params">()</span> <span class="keyword">throws</span> KettleException</span>&#123; </span><br><span class="line">        KettleEnvironment.init(); </span><br><span class="line">        <span class="comment">//创建DB资源库 </span></span><br><span class="line">        KettleDatabaseRepository repository=<span class="keyword">new</span> KettleDatabaseRepository(); </span><br><span class="line">        DatabaseMeta databaseMeta=<span class="keyword">new</span> DatabaseMeta(<span class="string">"kettle"</span>,<span class="string">"mysql"</span>,<span class="string">"jdbc"</span>,<span class="string">"localhost"</span>,<span class="string">"kettle"</span>,<span class="string">"3306"</span>,<span class="string">"root"</span>,<span class="string">"root"</span>); </span><br><span class="line">        <span class="comment">//选择资源库 </span></span><br><span class="line">        KettleDatabaseRepositoryMeta kettleDatabaseRepositoryMeta=<span class="keyword">new</span> KettleDatabaseRepositoryMeta(<span class="string">"kettle"</span>,<span class="string">"kettle"</span>,<span class="string">"Transformation description"</span>,databaseMeta); </span><br><span class="line">        repository.init(kettleDatabaseRepositoryMeta); </span><br><span class="line">        <span class="comment">//连接资源库 </span></span><br><span class="line">        repository.connect(<span class="string">"admin"</span>,<span class="string">"admin"</span>); </span><br><span class="line">        RepositoryDirectoryInterface directoryInterface=repository.loadRepositoryDirectoryTree(); </span><br><span class="line">        <span class="comment">//选择转换 </span></span><br><span class="line">        TransMeta transMeta=repository.loadTransformation(<span class="string">"demo1"</span>,directoryInterface,<span class="keyword">null</span>,<span class="keyword">true</span>,<span class="keyword">null</span>); </span><br><span class="line">        Trans trans=<span class="keyword">new</span> Trans(transMeta); </span><br><span class="line">        trans.execute(<span class="keyword">null</span>); </span><br><span class="line">        trans.waitUntilFinished();<span class="comment">//等待直到数据结束 </span></span><br><span class="line">        <span class="keyword">if</span>(trans.getErrors()&gt;<span class="number">0</span>)&#123; </span><br><span class="line">            System.out.println(<span class="string">"transformation error"</span>); </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123; </span><br><span class="line">            System.out.println(<span class="string">"transformation successfully"</span>); </span><br><span class="line">        &#125; </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="kettle二次开发实现转换的web接口"><a href="#kettle二次开发实现转换的web接口" class="headerlink" title="kettle二次开发实现转换的web接口"></a>kettle二次开发实现转换的web接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//运行作业</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/run"</span>,method = RequestMethod.POST)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> AjaxObject <span class="title">runJob</span><span class="params">(@RequestBody TranModel tranModel, HttpServletRequest request)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            TransMeta transMeta = TransBuilder.buildCopyTable(tranModel.getTransformationName(),tranModel.getSourceDatabaseName(),</span><br><span class="line">                    tranModel.getSourceTableName(),tranModel.getSourceFields(),tranModel.getTargetDatabaseName(),</span><br><span class="line">                    tranModel.getTargetTableName(),tranModel.getTargetFields());</span><br><span class="line">            KettleEnvironment.init();</span><br><span class="line">            Trans trans = <span class="keyword">new</span> Trans(transMeta);</span><br><span class="line">            trans.execute(<span class="keyword">null</span>);</span><br><span class="line">            trans.waitUntilFinished();</span><br><span class="line">            <span class="keyword">if</span>(trans.getErrors()!=<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> AjaxObject.ok(<span class="string">"转换出错"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> AjaxObject.ok(<span class="string">"转换成功"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> AjaxObject.ok(<span class="string">"转换出错"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>其中TransBuilder是自己写的生成转换的类，主要实现了表输入-&gt;插入更新功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransBuilder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> TransMeta <span class="title">buildCopyTable</span><span class="params">(String transformationName, String sourceDatabaseName, String sourceTableName,</span></span></span><br><span class="line"><span class="function"><span class="params">        String[] sourceFields, String targetDatabaseName, String targetTableName, String[] targetFields)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> KettleException </span>&#123;</span><br><span class="line">        KettleEnvironment.init();</span><br><span class="line">        EnvUtil.environmentInit();</span><br><span class="line">        String[] databasesXML = &#123;</span><br><span class="line">                <span class="string">"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;connection&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;name&gt;target&lt;/name&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;server&gt;localhost&lt;/server&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;type&gt;Mysql&lt;/type&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;access&gt;Native&lt;/access&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;database&gt;"</span> + targetDatabaseName + <span class="string">"&lt;/database&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;port&gt;3306&lt;/port&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;username&gt;root&lt;/username&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;password&gt;Root@123&lt;/password&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;/connection&gt;"</span>,</span><br><span class="line">                <span class="string">"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;connection&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;name&gt;source&lt;/name&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;server&gt;10.4.20.151&lt;/server&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;type&gt;Mysql&lt;/type&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;access&gt;Native&lt;/access&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;database&gt;"</span> + sourceDatabaseName + <span class="string">"&lt;/database&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;port&gt;3306&lt;/port&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;username&gt;root&lt;/username&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;password&gt;Root@123&lt;/password&gt;"</span> +</span><br><span class="line">                        <span class="string">"&lt;/connection&gt;"</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建一个transMeta 对象</span></span><br><span class="line">            TransMeta transMeta = <span class="keyword">new</span> TransMeta();</span><br><span class="line">            transMeta.setName(transformationName);</span><br><span class="line">            <span class="comment">// 创建数据库对象，将数据库对象作为属性添加到transMeta 对象中</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; databasesXML.length; i++) &#123;</span><br><span class="line">                DatabaseMeta databaseMeta = <span class="keyword">new</span> DatabaseMeta(databasesXML[i]);</span><br><span class="line">                transMeta.addDatabase(databaseMeta);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//registry是给每个步骤生成一个标识Id用</span></span><br><span class="line">            PluginRegistry registry = PluginRegistry.getInstance();</span><br><span class="line">            <span class="comment">//第一个表输入步骤(TableInputMeta)</span></span><br><span class="line">            TableInputMeta tableInput = <span class="keyword">new</span> TableInputMeta();</span><br><span class="line">            String tableInputPluginId = registry.getPluginId(StepPluginType.class, tableInput);</span><br><span class="line">            <span class="comment">//给表输入添加一个DatabaseMeta连接数据库</span></span><br><span class="line">            DatabaseMeta sourceDatabase = transMeta.findDatabase(<span class="string">"source"</span>);</span><br><span class="line">            tableInput.setDatabaseMeta(sourceDatabase);</span><br><span class="line">            String select_sql = <span class="string">"SELECT "</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sourceFields.length; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    select_sql += <span class="string">", "</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    select_sql += <span class="string">" "</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                select_sql += sourceFields[i] + <span class="string">" "</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            select_sql += <span class="string">"FROM "</span> + sourceTableName;</span><br><span class="line">            System.out.println(select_sql);</span><br><span class="line">            tableInput.setSQL(select_sql);</span><br><span class="line">            <span class="comment">//添加TableInputMeta到转换中</span></span><br><span class="line">            StepMeta tableInputMetaStep = <span class="keyword">new</span> StepMeta(tableInputPluginId,<span class="string">"table_input"</span>,tableInput);</span><br><span class="line">            <span class="comment">//给步骤添加在spoon工具中的显示位置</span></span><br><span class="line">            tableInputMetaStep.setDraw(<span class="keyword">true</span>);</span><br><span class="line">            tableInputMetaStep.setLocation(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">            transMeta.addStep(tableInputMetaStep);</span><br><span class="line">            <span class="comment">//第二个步骤插入与更新</span></span><br><span class="line">            InsertUpdateMeta insertUpdateMeta = <span class="keyword">new</span> InsertUpdateMeta();</span><br><span class="line">            String insertUpdateMetaPluginId = registry.getPluginId(StepPluginType.class,insertUpdateMeta);</span><br><span class="line">            <span class="comment">//添加数据库连接</span></span><br><span class="line">            DatabaseMeta targetDatabase = transMeta.findDatabase(<span class="string">"target"</span>);</span><br><span class="line">            insertUpdateMeta.setDatabaseMeta(targetDatabase);</span><br><span class="line">            <span class="comment">//设置操作的表</span></span><br><span class="line">            insertUpdateMeta.setTableName(targetTableName);</span><br><span class="line">            <span class="keyword">int</span> len = targetFields.length;</span><br><span class="line">            <span class="comment">//设置用来查询的关键字</span></span><br><span class="line">            insertUpdateMeta.setKeyLookup(targetFields);</span><br><span class="line">            insertUpdateMeta.setKeyStream(targetFields);</span><br><span class="line">            String[] keyStream2 = <span class="keyword">new</span> String[len];</span><br><span class="line">            Arrays.fill(keyStream2, <span class="string">""</span>);</span><br><span class="line">            String[] keyCondition = <span class="keyword">new</span> String[len];</span><br><span class="line">            Arrays.fill(keyCondition, <span class="string">"="</span>);</span><br><span class="line">            insertUpdateMeta.setKeyStream2(keyStream2);<span class="comment">//一定要加上</span></span><br><span class="line">            insertUpdateMeta.setKeyCondition(keyCondition);</span><br><span class="line">            <span class="comment">//设置要更新的字段</span></span><br><span class="line">            String[] updatelookup = targetFields;</span><br><span class="line">            String [] updateStream = targetFields;</span><br><span class="line">            Boolean[] updateOrNot = <span class="keyword">new</span> Boolean[len];</span><br><span class="line">            Arrays.fill(updateOrNot, <span class="keyword">true</span>);</span><br><span class="line">            insertUpdateMeta.setUpdateLookup(updatelookup);</span><br><span class="line">            insertUpdateMeta.setUpdateStream(updateStream);</span><br><span class="line">            insertUpdateMeta.setUpdate(updateOrNot);</span><br><span class="line">            String[] lookup = insertUpdateMeta.getUpdateLookup();</span><br><span class="line">            <span class="comment">//添加步骤到转换中</span></span><br><span class="line">            StepMeta insertUpdateStep = <span class="keyword">new</span> StepMeta(insertUpdateMetaPluginId,<span class="string">"insert_update"</span>,insertUpdateMeta);</span><br><span class="line">            insertUpdateStep.setDraw(<span class="keyword">true</span>);</span><br><span class="line">            insertUpdateStep.setLocation(<span class="number">250</span>,<span class="number">100</span>);</span><br><span class="line">            transMeta.addStep(insertUpdateStep);</span><br><span class="line">            <span class="comment">//******************************************************************</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//******************************************************************</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//添加hop把两个步骤关联起来</span></span><br><span class="line">            transMeta.addTransHop(<span class="keyword">new</span> TransHopMeta(tableInputMetaStep, insertUpdateStep));</span><br><span class="line">            System.out.println(<span class="string">"***********the end************"</span>);</span><br><span class="line">            <span class="keyword">return</span> transMeta;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> KettleException(<span class="string">"An unexpected error occurred creating the new transformation"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后附上kettle<a href="https://javadoc.pentaho.com/" target="_blank" rel="noopener">官方文档</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/10/10/spring-boot中kettle使用/">spring-boot中kettle使用</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Lzm</a></p>
+        <p><span>发布时间:</span>2018-10-10, 14:17:25</p>
+        <p><span>最后更新:</span>2018-12-22, 13:37:33</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/10/spring-boot中kettle使用/" title="spring-boot中kettle使用">https://lzm1996.github.io/2018/10/10/spring-boot中kettle使用/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://lzm1996.github.io/2018/10/10/spring-boot中kettle使用/　　作者: Lzm" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/10/22/hadoop-hdfs常用命令/">
+                    Hadoop HDFS常用命令
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/09/15/spring-boot中phoenix使用/">
+                    phoenix使用
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#maven项目无法自动导入kettle包"><span class="toc-number">1.</span> <span class="toc-text">maven项目无法自动导入kettle包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#maven打包项目找不到第三方引入包"><span class="toc-number">2.</span> <span class="toc-text">maven打包项目找不到第三方引入包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kettle有些类找不到"><span class="toc-number">3.</span> <span class="toc-text">kettle有些类找不到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用java执行kettle"><span class="toc-number">4.</span> <span class="toc-text">使用java执行kettle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-通过文件方式执行转换"><span class="toc-number">4.1.</span> <span class="toc-text">1.通过文件方式执行转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-通过文件方式执行job"><span class="toc-number">4.2.</span> <span class="toc-text">2.通过文件方式执行job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-执行资源库的中的转换"><span class="toc-number">4.3.</span> <span class="toc-text">3.执行资源库的中的转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kettle二次开发实现转换的web接口"><span class="toc-number">5.</span> <span class="toc-text">kettle二次开发实现转换的web接口</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"spring-boot中kettle使用　| Mas's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/10/22/hadoop-hdfs常用命令/" title="上一篇: Hadoop HDFS常用命令">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/09/15/spring-boot中phoenix使用/" title="下一篇: phoenix使用">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/14/ubuntu 16.04更换源/">Ubuntu 源使用帮助</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/29/vue-elementUI踩坑之多个Popover/">vue-elementUI踩坑之多个Popover</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/29/vue slot插槽分发/">vue中slot插槽分发</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/29/js中作用域和闭包/">js中声明提升、作用域（链）和`this`关键字</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/22/anaconda常用命令/">anaconda常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/29/Spring中RestTemplate使用/">Spring中RestTemplate使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/29/java枚举（enum）/">java枚举（enum）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/22/sqoop使用/">sqoop2安装、使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/22/hadoop-hdfs常用命令/">Hadoop HDFS常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/10/spring-boot中kettle使用/">spring-boot中kettle使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/15/spring-boot中phoenix使用/">phoenix使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/15/java和maven环境变量/">java和maven环境变量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/15/spring-boot中quartz使用/">spring-boot中quartz使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/修改pip的镜像源/">pip镜像源修改</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/java对象POJO/">java的POJO、PO、VO理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/git使用/">git使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/spring-boot配置devtools实现热部署/">spring-boot配置devtools实现热部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/22/mysql8.0环境部署/">mysql8.0环境部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/22/vue环境部署/">vue环境部署</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2019 Lzm
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
