@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hadoop HDFS常用命令 | Mas&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Hadoop HDFS常用命令">
+<meta name="keywords" content="hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop HDFS常用命令">
+<meta property="og:url" content="http://yoursite.com/2018/10/22/hadoop-hdfs常用命令/index.html">
+<meta property="og:site_name" content="Mas&#39;s Blog">
+<meta property="og:description" content="Hadoop HDFS常用命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-22T14:31:56.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop HDFS常用命令">
+<meta name="twitter:description" content="Hadoop HDFS常用命令">
+  
+    <link rel="alternate" href="/atom.xml" title="Mas&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mas&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">花谢花飞飞满天</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-hadoop-hdfs常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/hadoop-hdfs常用命令/" class="article-date">
+  <time datetime="2018-10-22T02:17:25.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hadoop HDFS常用命令
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hadoop HDFS常用命令<br><a id="more"></a></p>
+<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>Hadoop 附带了一个名为 HDFS(Hadoop分布式文件系统)的分布式文件系统，基于 Hadoop 的应用程序使用 HDFS 。HDFS 是专为存储超大数据文件，运行在集群的商品硬件上。它是容错的，可伸缩的，并且非常易于扩展。</p>
+<p>HDFS集群主要由 NameNode 管理文件系统 Metadata 和 DataNodes 存储的实际数据。</p>
+<p>NameNode: NameNode可以被认为是系统的主站。它维护所有系统中存在的文件和目录的文件系统树和元数据 。 两个文件：“命名空间映像“和”编辑日志“是用来存储元数据信息。Namenode 有所有包含数据块为一个给定的文件中的数据节点的知识，但是不存储块的位置持续。从数据节点在系统每次启动时信息重构一次。<br>DataNode : DataNodes作为从机，每台机器位于一个集群中，并提供实际的存储. 它负责为客户读写请求服务。<br>HDFS中的读/写操作运行在块级。HDFS数据文件被分成块大小的块，这是作为独立的单元存储。默认块大小为64 MB。<br>HDFS操作上是数据复制的概念，其中在数据块的多个副本被创建，分布在整个节点的群集以使在节点故障的情况下数据的高可用性。</p>
+<blockquote>
+<p>在HDFS的文件，比单个块小，不占用块的全部存储。</p>
+</blockquote>
+<h2 id="Hadoop-fs-和Hadoop-dfs-的区别"><a href="#Hadoop-fs-和Hadoop-dfs-的区别" class="headerlink" title="Hadoop fs 和Hadoop dfs 的区别"></a>Hadoop fs 和Hadoop dfs 的区别</h2><ol>
+<li>fs是文件系统， dfs是分布式文件系统</li>
+<li>fs &gt; dfs</li>
+<li>分布式环境情况下，fs与dfs无区别</li>
+<li>本地环境中，fs就是本地文件，dfs就不能用了<blockquote>
+<p>fs涉及到一个通用的文件系统，可以指向任何的文件系统如local，HDFS等。但是DFS仅是针对HDFS的。那么什么时候用fs呢？可以在本地与hadoop分布式文件系统的交互操作中使用。特定的DFS指令与HDFS有关</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="HDFS常用命令"><a href="#HDFS常用命令" class="headerlink" title="HDFS常用命令"></a>HDFS常用命令</h2><p>创建文件夹test </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /test/</span><br></pre></td></tr></table></figure>
+<p>创建多层目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir -p /a/b</span><br></pre></td></tr></table></figure>
+<p>输出目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -ls /</span><br></pre></td></tr></table></figure>
+<p>递归输出目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -ls -R /</span><br></pre></td></tr></table></figure>
+<p>上传文件到HDFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -put filename  /path</span><br></pre></td></tr></table></figure>
+<p>查看文件内容text</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -text /path/filename</span><br></pre></td></tr></table></figure>
+<p>查看文件内容cat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -cat /path/filename</span><br></pre></td></tr></table></figure>
+<p>从HDFS下载到本地</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -get /path/filename   newfilename</span><br></pre></td></tr></table></figure>
+<p>删除文件(不适合文件夹)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -rm /path/filename</span><br></pre></td></tr></table></figure>
+<p>删除文件夹(递归形式)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -rmr /path/filename</span><br></pre></td></tr></table></figure>
+<p><strong>具体其他命令可使用 hadoop fs 查找</strong> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/22/hadoop-hdfs常用命令/" data-id="cjqi0s8lh0006o8vy2r6pcp9y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/22/sqoop使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          sqoop2安装、使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/10/spring-boot中kettle使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">spring-boot中kettle使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phoenix/">phoenix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pip/">pip</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-boot/">spring-boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqoop/">sqoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-js/">vue.js</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/phoenix/" style="font-size: 10px;">phoenix</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 20px;">spring-boot</a> <a href="/tags/sqoop/" style="font-size: 10px;">sqoop</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/14/ubuntu 16.04更换源/">Ubuntu 源使用帮助</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/vue-elementUI踩坑之多个Popover/">vue-elementUI踩坑之多个Popover</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/vue slot插槽分发/">vue中slot插槽分发</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/js中作用域和闭包/">js中声明提升、作用域（链）和`this`关键字</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/anaconda常用命令/">anaconda常用命令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Lzm<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
