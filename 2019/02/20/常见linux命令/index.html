@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常见linux命令">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见linux命令">
+<meta property="og:url" content="https://lzm1996.github.io/2019/02/20/常见linux命令/index.html">
+<meta property="og:site_name" content="Mas&#39;s Blog">
+<meta property="og:description" content="常见linux命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-21T07:17:25.995Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见linux命令">
+<meta name="twitter:description" content="常见linux命令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzm1996.github.io/2019/02/20/常见linux命令/"/>
+
+
+
+
+
+  <title>常见linux命令 | Mas's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mas's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花谢花飞飞满天</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/aboutme/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lzm1996.github.io/2019/02/20/常见linux命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lzm">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mas's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常见linux命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T17:40:25+08:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/20/常见linux命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/02/20/常见linux命令/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>常见linux命令<br><a id="more"></a></p>
+<h2 id="一、文件和目录"><a href="#一、文件和目录" class="headerlink" title="一、文件和目录"></a>一、文件和目录</h2><ol>
+<li><p>cd命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">（它用于切换当前目录，它的参数是要切换到的目录的路径，可以是绝对路径，也可以是相对路径）</span><br><span class="line"><span class="built_in">cd</span> /home    进入 <span class="string">'/ home'</span> 目录</span><br><span class="line"><span class="built_in">cd</span> ..            返回上一级目录 </span><br><span class="line"><span class="built_in">cd</span> ../..         返回上两级目录 </span><br><span class="line"><span class="built_in">cd</span>               进入个人的主目录 </span><br><span class="line"><span class="built_in">cd</span> ~user1   进入个人的主目录 </span><br><span class="line"><span class="built_in">cd</span> -             返回上次所在的目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pwd命令<br>pwd 显示工作路径</p>
+</li>
+<li><p>ls命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(查看文件与目录的命令，list之意)</span><br><span class="line">ls 查看目录中的文件 </span><br><span class="line">ls -l 显示文件和目录的详细资料 </span><br><span class="line">ls -a 列出全部文件，包含隐藏文件</span><br><span class="line">ls -R 连同子目录的内容一起列出（递归列出），等于该目录下的所有文件都会显示出来  </span><br><span class="line">ls [0-9] 显示包含数字的文件名和目录名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>cp命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">（用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下）</span><br><span class="line">-a ：将文件的特性一起复制</span><br><span class="line">-p ：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份</span><br><span class="line">-i ：若目标文件已经存在时，在覆盖时会先询问操作的进行</span><br><span class="line">-r ：递归持续复制，用于目录的复制行为</span><br><span class="line">-u ：目标文件与源文件有差异时才会复制</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mv命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（用于移动文件、目录或更名，move之意）</span><br><span class="line">-f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖</span><br><span class="line">-i ：若目标文件已经存在，就会询问是否覆盖</span><br><span class="line">-u ：若目标文件已经存在，且比目标文件新，才会更新</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rm命令</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（用于删除文件或目录，remove之意）</span><br><span class="line">-f ：就是force的意思，忽略不存在的文件，不会出现警告消息</span><br><span class="line">-i ：互动模式，在删除前会询问用户是否操作</span><br><span class="line">-r ：递归删除，最常用于目录删除，它是一个非常危险的参数</span><br></pre></td></tr></table></figure>
+<h2 id="二、查看文件内容"><a href="#二、查看文件内容" class="headerlink" title="二、查看文件内容"></a>二、查看文件内容</h2><ol start="7">
+<li>cat命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">（用于查看文本文件的内容，后接要查看的文件名，通常可用管道与more和less一起使用）</span><br><span class="line">cat file1 从第一个字节开始正向查看文件的内容 </span><br><span class="line">tac file1 从最后一行开始反向查看一个文件的内容 </span><br><span class="line">cat -n file1 标示文件的行数 </span><br><span class="line">more file1 查看一个长文件的内容 </span><br><span class="line">head -n 2 file1 查看一个文件的前两行 </span><br><span class="line">tail -n 2 file1 查看一个文件的最后两行 </span><br><span class="line">tail -n +1000 file1  从1000行开始显示，显示1000行以后的</span><br><span class="line">cat filename | head -n 3000 | tail -n +1000  显示1000行到3000行</span><br><span class="line">cat filename | tail -n +3000 | head -n 1000  从第3000行开始，显示1000(即显示3000~3999行)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="三、文件搜索"><a href="#三、文件搜索" class="headerlink" title="三、文件搜索"></a>三、文件搜索</h2><ol start="8">
+<li>find命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">find / -name file1 从 <span class="string">'/'</span> 开始进入根文件系统搜索文件和目录 </span><br><span class="line">find / -user user1 搜索属于用户 <span class="string">'user1'</span> 的文件和目录 </span><br><span class="line">find /usr/bin -<span class="built_in">type</span> f -atime +100 搜索在过去100天内未被使用过的执行文件 </span><br><span class="line">find /usr/bin -<span class="built_in">type</span> f -mtime -10 搜索在10天内被创建或者修改过的文件 </span><br><span class="line">whereis halt 显示一个二进制文件、源码或man的位置 </span><br><span class="line"><span class="built_in">which</span> halt 显示一个二进制文件或可执行文件的完整路径</span><br><span class="line"></span><br><span class="line">删除大于50M的文件：</span><br><span class="line">find /var/mail/ -size +50M -<span class="built_in">exec</span> rm &#123;&#125; ＼;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="四、文件的权限-使用-“-”-设置权限，使用-“-“-用于取消"><a href="#四、文件的权限-使用-“-”-设置权限，使用-“-“-用于取消" class="headerlink" title="四、文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消"></a>四、文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消</h2><ol start="9">
+<li><p>chmod命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls -lh 显示权限 </span><br><span class="line">chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r，4 ）、写(w，2)和执行(x，1)的权限 </span><br><span class="line">chmod go-rwx directory1  删除群组(g)与其他人(o)对目录的读写执行权限</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>chown命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（改变文件的所有者）</span><br><span class="line">chown user1 file1 改变一个文件的所有人属性 </span><br><span class="line">chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性 </span><br><span class="line">chown user1:group1 file1 改变一个文件的所有人和群组属性</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>chgrp命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">（改变文件所属用户组）</span><br><span class="line">chgrp group1 file1 改变文件的群组</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="五、文本处理"><a href="#五、文本处理" class="headerlink" title="五、文本处理"></a>五、文本处理</h2><ol start="12">
+<li><p>grep命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">（分析一行的信息，若当中有我们所需要的信息，就将该行显示出来，该命令通常与管道命令一起使用，用于对一些命令的输出进行筛选加工等等）</span><br><span class="line">grep Aug /var/<span class="built_in">log</span>/messages  在文件 <span class="string">'/var/log/messages'</span>中查找关键词<span class="string">"Aug"</span> </span><br><span class="line">grep ^Aug /var/<span class="built_in">log</span>/messages 在文件 <span class="string">'/var/log/messages'</span>中查找以<span class="string">"Aug"</span>开始的词汇 </span><br><span class="line">grep [0-9]  /var/<span class="built_in">log</span>/messages 选择 <span class="string">'/var/log/messages'</span> 文件中所有包含数字的行 </span><br><span class="line">grep Aug -R /var/<span class="built_in">log</span>/* 在目录 <span class="string">'/var/log'</span> 及随后的目录中搜索字符串<span class="string">"Aug"</span> </span><br><span class="line">sed <span class="string">'s/stringa1/stringa2/g'</span> example.txt 将example.txt文件中的 <span class="string">"string1"</span> 替换成 <span class="string">"string2"</span> </span><br><span class="line">sed <span class="string">'/^$/d'</span> example.txt 从example.txt文件中删除所有空白行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>paste命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paste file1 file2 合并两个文件或两栏的内容 </span><br><span class="line">paste -d <span class="string">'+'</span> file1 file2 合并两个文件或两栏的内容，中间用<span class="string">"+"</span>区分</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sort命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sort file1 file2 排序两个文件的内容 </span><br><span class="line">sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份) </span><br><span class="line">sort file1 file2 | uniq -u 删除交集，留下其他的行 </span><br><span class="line">sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>comm命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">comm -1 file1 file2 比较两个文件的内容只删除 <span class="string">'file1'</span> 所包含的内容 </span><br><span class="line">comm -2 file1 file2 比较两个文件的内容只删除 <span class="string">'file2'</span> 所包含的内容 </span><br><span class="line">comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="六、打包和压缩文件"><a href="#六、打包和压缩文件" class="headerlink" title="六、打包和压缩文件"></a>六、打包和压缩文件</h2><ol start="16">
+<li>tar命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">（对文件进行打包，默认情况并不会压缩，如果指定了相应的参数，它还会调用相应的压缩程序（如gzip和bzip等）进行压缩和解压）</span><br><span class="line">-c ：新建打包文件</span><br><span class="line">-t ：查看打包文件的内容含有哪些文件名</span><br><span class="line">-x ：解打包或解压缩的功能，可以搭配-C（大写）指定解压的目录，注意-c,-t,-x不能同时出现在同一条命令中</span><br><span class="line">-j ：通过bzip2的支持进行压缩/解压缩</span><br><span class="line">-z ：通过gzip的支持进行压缩/解压缩</span><br><span class="line">-v ：在压缩/解压缩过程中，将正在处理的文件名显示出来</span><br><span class="line">-f filename ：filename为要处理的文件</span><br><span class="line">-C dir ：指定压缩/解压缩的目录dir</span><br><span class="line">压缩：tar -jcv -f filename.tar.bz2 要被处理的文件或目录名称</span><br><span class="line">查询：tar -jtv -f filename.tar.bz2</span><br><span class="line">解压：tar -jxv -f filename.tar.bz2 -C 欲解压缩的目录</span><br><span class="line"></span><br><span class="line">bunzip2 file1.bz2 解压一个叫做 <span class="string">'file1.bz2'</span>的文件 </span><br><span class="line">bzip2 file1 压缩一个叫做 <span class="string">'file1'</span> 的文件 </span><br><span class="line">gunzip file1.gz 解压一个叫做 <span class="string">'file1.gz'</span>的文件 </span><br><span class="line">gzip file1 压缩一个叫做 <span class="string">'file1'</span>的文件 </span><br><span class="line">gzip -9 file1 最大程度压缩 </span><br><span class="line">rar a file1.rar test_file 创建一个叫做 <span class="string">'file1.rar'</span> 的包 </span><br><span class="line">rar a file1.rar file1 file2 dir1 同时压缩 <span class="string">'file1'</span>, <span class="string">'file2'</span> 以及目录 <span class="string">'dir1'</span> </span><br><span class="line">rar x file1.rar 解压rar包</span><br><span class="line"></span><br><span class="line">zip file1.zip file1 创建一个zip格式的压缩包 </span><br><span class="line">unzip file1.zip 解压一个zip格式压缩包 </span><br><span class="line">zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="七、系统和关机-系统的关机、重启以及登出"><a href="#七、系统和关机-系统的关机、重启以及登出" class="headerlink" title="七、系统和关机 (系统的关机、重启以及登出 )"></a>七、系统和关机 (系统的关机、重启以及登出 )</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shutdown -h now 关闭系统(1) </span><br><span class="line">init 0 关闭系统(2) </span><br><span class="line">telinit 0 关闭系统(3) </span><br><span class="line">shutdown -h hours:minutes &amp; 按预定时间关闭系统 </span><br><span class="line">shutdown -c 取消按预定时间关闭系统 </span><br><span class="line">shutdown -r now 重启(1) </span><br><span class="line">reboot 重启(2) </span><br><span class="line"><span class="built_in">logout</span> 注销 </span><br><span class="line">time 测算一个命令（即程序）的执行时间</span><br></pre></td></tr></table></figure>
+<h2 id="八、进程相关的命令"><a href="#八、进程相关的命令" class="headerlink" title="八、进程相关的命令"></a>八、进程相关的命令</h2><p><strong>jps命令</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">（显示当前系统的java进程情况，及其id号）</span><br><span class="line">jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。</span><br></pre></td></tr></table></figure></p>
+<p><strong>ps命令</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">（用于将某个时间点的进程运行情况选取下来并输出，process之意）</span><br><span class="line">-A ：所有的进程均显示出来</span><br><span class="line">-a ：不与terminal有关的所有进程</span><br><span class="line">-u ：有效用户的相关进程</span><br><span class="line">-x ：一般与a参数一起使用，可列出较完整的信息</span><br><span class="line">-l ：较长，较详细地将PID的信息列出</span><br><span class="line"></span><br><span class="line">ps aux <span class="comment"># 查看系统所有的进程数据</span></span><br><span class="line">ps ax <span class="comment"># 查看不与terminal有关的所有进程</span></span><br><span class="line">ps -lA <span class="comment"># 查看系统所有的进程数据</span></span><br><span class="line">ps axjf <span class="comment"># 查看连同一部分进程树状态</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>kill命令</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">（用于向某个工作（%jobnumber）或者是某个PID（数字）传送一个信号，它通常与ps和<span class="built_in">jobs</span>命令一起使用）</span><br><span class="line"></span><br><span class="line">如何杀死进程：</span><br><span class="line">（1）图形化界面的方式</span><br><span class="line">（2）<span class="built_in">kill</span> -9 pid  （-9表示强制关闭）</span><br><span class="line">（3）killall -9 程序的名字</span><br><span class="line">（4）pkill 程序的名字</span><br><span class="line"></span><br><span class="line">查看进程端口号：</span><br><span class="line">netstat -tunlp|grep 端口号</span><br></pre></td></tr></table></figure></p>
+<p><strong>killall命令</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（向一个命令启动的进程发送一个信号）</span><br></pre></td></tr></table></figure></p>
+<p><strong>top命令</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</span><br></pre></td></tr></table></figure></p>
+<h2 id="九、普通文件和目录文件的区别"><a href="#九、普通文件和目录文件的区别" class="headerlink" title="九、普通文件和目录文件的区别"></a>九、普通文件和目录文件的区别</h2><p>Linux下面一切皆文件，配置是文件，设备是文件，目录也是特殊的文件，文件有如下几种：<br>d：目录文件的标识是，<br>-：普通文件标识，<br>l：软连接文件，亦称符号链接文件；<br>b，块文件，是设备文件的一种（还有另一种），b是block的简写。<br>c，字符文件，也是设备文件的一种，c是character的文件。</p>
+<p>普通文件：存储普通数据，一般就是字符串。<br>目录文件：存储了一张表，该表就是该目录文件下，所有文件名和inode的映射关系。</p>
+<p>权限的区别:<br>对于普通文件来说，rwx的意义是：<br>r：可以获得这个普通文件的名字和内容。<br>w：可以修改这个文件的内容和文件名。可以删除该文件。<br>x：该文件是否具有被执行的权限。</p>
+<p>对于目录文件来说，rwx的意义是：<br>r：表示具有读取目录结构列表的权限，所以当你具有读取(r)一个目录的权限时，表示你可以查询该目录下的文件名。 就可以利用 ls 这个命令将该目录的内容列表显示出来， 必须这个目录有x的权限，才可以进入这个目录。<br>w：移动该目录结构列表的权限（建立新的文件与目录、删除已经存在的文件与目录、更名、移动位置）。<br>x：目录不可以被执行，目录的x代表的是用户能否进入该目录成为工作目录。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lzm 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/hive基本操作/" rel="next" title="hive基本操作">
+                <i class="fa fa-chevron-left"></i> hive基本操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/10/操作系统进程线程/" rel="prev" title="操作系统进程与线程">
+                操作系统进程与线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lzm</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Lzm1996" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:277028753@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/yourname" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、文件和目录"><span class="nav-number">1.</span> <span class="nav-text">一、文件和目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、查看文件内容"><span class="nav-number">2.</span> <span class="nav-text">二、查看文件内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、文件搜索"><span class="nav-number">3.</span> <span class="nav-text">三、文件搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、文件的权限-使用-“-”-设置权限，使用-“-“-用于取消"><span class="nav-number">4.</span> <span class="nav-text">四、文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、文本处理"><span class="nav-number">5.</span> <span class="nav-text">五、文本处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、打包和压缩文件"><span class="nav-number">6.</span> <span class="nav-text">六、打包和压缩文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、系统和关机-系统的关机、重启以及登出"><span class="nav-number">7.</span> <span class="nav-text">七、系统和关机 (系统的关机、重启以及登出 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、进程相关的命令"><span class="nav-number">8.</span> <span class="nav-text">八、进程相关的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、普通文件和目录文件的区别"><span class="nav-number">9.</span> <span class="nav-text">九、普通文件和目录文件的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lzm</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lzm.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://lzm1996.github.io/2019/02/20/常见linux命令/';
+          this.page.identifier = '2019/02/20/常见linux命令/';
+          this.page.title = '常见linux命令';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lzm.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
